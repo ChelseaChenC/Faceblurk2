@@ -261,8 +261,53 @@ function screenShot() {
 
 function saveTest(index) {
     // console.log("BHANGRA " + imgs[index].src);
-    $("body").append("<a id='hiddenLink' href='" + imgs[index].src + "' style='display:none;' download='" + index.toString() + ".jpg'>Download Pic</a>");
+
+    // get current time
+
+    let now = new Date();
+    let year = now.getFullYear();
+    let month = now.getMonth() + 1;
+    let day = now.getDate();
+    let minutes = now.getMinutes();
+    let seconds = now.getSeconds();
+    let milliseconds = now.getMilliseconds();
+
+    // fill leading zeros
+
+    if (month < 10) {
+      month = '0' + month;
+    }
+
+    if (day < 10) {
+      day = '0' + day;
+    }
+
+    if (minutes < 10) {
+      minutes = '0' + minutes;
+    }
+
+    if (seconds < 10) {
+      seconds = '0' + seconds;
+    }
+
+    if (milliseconds < 10) {
+      milliseconds = '00' + milliseconds;
+    } else if (milliseconds < 100) {
+      milliseconds = '0' + milliseconds;
+    }
+
+    let timestamp = year + month + day + '-' + minutes + seconds + '-' + milliseconds;
+
+    // create a download link
+
+    $("body").append("<a id='hiddenLink' href='" + imgs[index].src + "' style='display:none;' download='" + timestamp + ".jpg'>Download Pic</a>");
+
+    // click on the link
+
     $("#hiddenLink")[0].click();
+
+    // remove the link
+
     $("#hiddenLink").remove();
 }
 
